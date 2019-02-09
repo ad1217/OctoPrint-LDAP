@@ -52,9 +52,9 @@ class LDAPUserManager(FilebasedUserManager,
         if FilebasedUserManager.findUser(self, username) is not None:
             return FilebasedUserManager.changeUserPassword(self, username, password)
 
-    def findUser(self, userid=None, session=None):
-        local_user = FilebasedUserManager.findUser(self, userid, session)
-        # If user not exists in local database, search it on LDAP
+    def findUser(self, userid=None, apikey=None, session=None):
+        local_user = FilebasedUserManager.findUser(self, userid, apikey, session)
+        #If user not exists in local database, search it on LDAP
         if userid and not local_user:
             if (self.findLDAPUser(userid)):
                 # Return a fake user instance
